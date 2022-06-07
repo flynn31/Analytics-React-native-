@@ -1,15 +1,16 @@
 import React from 'react'
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { TextInput, Button, Text } from 'react-native-paper'
+import { DefaultTheme, Provider as PaperProvider, TextInput, Button, Text } from 'react-native-paper'
 import { View, SafeAreaView } from 'react-native';
-import { Root } from 'react-native-popup-confirm-toast'
 
 
 import Home from "./screens/Home/Home"
 import Analytics from "./screens/Analytics/Analytics"
+import Detail from "./screens/Detail/Detail"
 
 const Stack = createNativeStackNavigator();
+
 const Dashboard = (navigation) => (
   <View>
     <View>
@@ -21,15 +22,20 @@ const Dashboard = (navigation) => (
   </View>
 )
 
+const theme = {
+  ...DefaultTheme
+}
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Dashboard">
-        {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
-        <Stack.Screen name="Analytics" component={Analytics} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Analytics">
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Analytics" component={Analytics} />
+          <Stack.Screen name="Detail" component={Detail} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   )
 }
 
